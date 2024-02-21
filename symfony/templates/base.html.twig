@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!--Title and description of the website-->
+        <meta name="description" content="Achat vente de véhicules d'occasion - Réparation de véhicules">
+                    
+        <!-- Style sheet-->
+        <link rel="stylesheet" href="{{ asset('styles/styles.css') }}"/>
+                    
+        <!-- Fonts Rajdhani and Barlow -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Barlow&family=Rajdhani&display=swap" rel="stylesheet">
+        
+        <!-- Javascript -->
+        <script src="{{ asset('javascript/scripts.js') }}" defer></script>
+    </head>
+    
+    <body>
+    	{% include 'partials/_header.html.twig' %}
+        {% block body %}{% endblock %}
+        {% include 'partials/_footer.html.twig' %}
+    </body>
+</html>

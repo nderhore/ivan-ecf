@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Garage Vincent Parrot - Home page{% endblock %}
+
+{% block body %}
+    <article class="index_article_presentation">
+        <h2>Garage auto à Toulouse</h2>
+        <p>
+            Notre garage auto situé à Toulouse propose une large gamme de services : réparation de la carrosserie et de la mécanique
+            des voitures, ainsi que leur entretien régulier pour garantir leur performance et leur sécurité.                    
+            De plus, le garage V. Parrot met en vente des véhicules d’occasion contrôlés dans notre atelier et garantis 6 mois.                    
+            Avec nous, votre véhicule est entre de bonnes mains.
+        </p>
+    </article>
+
+    <article class="index_article_services">
+        <h2>Nos services</h2>
+        <div class="index_services_div">
+            {% for prestation in prestationList %}
+                {% include "partials/prestation/_prestation_block.html.twig" %}
+            {% endfor %}
+        </section>
+    </article>
+
+    <article class="index_article_opinion">
+        <h2>Avis des clients</h2>
+        <h3>9.4/10</h3>
+        <p>"Ce garage est excellent et les mécaniciens très professionnels. Je recommande."</p>
+        <p>F. Vincent</p>
+        <a class="link" href=""{{ path('app_home') }}"">Laisser un avis</a>
+    </article>
+{% endblock %}

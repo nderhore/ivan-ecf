@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Garage Vincent Parrot - Contact page{% endblock %}
+
+{% block body %}
+    <article class="contact_article">
+        <h2>Nous contacter</h2>
+        {{ form_start(contactForm) }}
+            <section class="contact_article_form">
+                <div class="contact_form_shorts">
+                    <p class="contact_form_short">
+                        {{ form_row(contactForm.firstname) }}
+                    </p>
+                    <p class="contact_form_short">
+                        {{ form_row(contactForm.lastname) }}
+                    </p>
+                </div>
+                <div class="contact_form_shorts">
+                    <p class="contact_form_short">
+                        {{ form_row(contactForm.email) }}
+                    </p>
+                    <p class="contact_form_short">
+                        {{ form_row(contactForm.phone) }}
+                    </p>
+                </div>
+                <div class="contact_form_shorts">
+                    <p class="contact_form_short">
+                        {{ form_row(contactForm.title) }}
+                    </p>
+                    <p class="contact_form_short">
+                        {{ form_row(contactForm.message) }}
+                    </p>
+                </div>
+            </section>
+            <button class="link" type"button">Envoyer la demande</button>
+        {{ form_end(contactForm) }}
+    </article>
+
+    
+    {% if user %}
+        <article class="contact_article">
+            <h2>Les formulaires de contact</h2>
+            {% for oneForm in formList %}
+                <section class="contact_article_form">
+                    <div class="contact_form_shorts">
+                        <p class="contact_form_short">Prénom: {{ oneForm.firstname}}</p>
+                        <p class="contact_form_short">Nom: {{ oneForm.lastname}}</p>
+                    </div>
+                    <div class="contact_form_shorts">
+                        <p class="contact_form_short">Email: {{ oneForm.email}}</p>
+                        <p class="contact_form_short">Téléphone: {{ oneForm.phone}}</p>
+                    </div>
+                    <div class="contact_form_shorts">
+                        <p class="contact_form_subject">Sujet: {{ oneForm.title}}</p>
+                        <p class="contact_form_message">Message: {{ oneForm.message}}</p>
+                    </div>
+                    <button class="link" type"button">Effacer</button>
+                </section>
+            {% endfor %}
+        </article>
+    {% endif %}
+    
+
+{% endblock %}

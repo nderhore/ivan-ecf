@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Garage Vincent Parrot - Les services{% endblock %}
+
+{% block body %}
+  <!-- Article to present the chosen prestation -->
+  <article class="prestation_article">
+      <section class="prestation_article_text">
+          <h2>{{ prestation.title }}</h2>
+          <p>{{ prestation.message }}</p>
+          <a class="link" href="{{ path('app_contact') }}">Nous contacter</a>
+      </section>
+      <section class="prestation_article_image">
+          <img src="{{ vich_uploader_asset(prestation, 'imageFile') }}" alt="Illustration for the section : {{ prestation.title }}">
+      </section>
+  </article>
+
+  {% if prestation.id == 4 %}
+    <article class="sale_article">
+
+      <!-- Article to present the service: car sale -->
+      <h2 class="sale_article_title">Véhicules à la vente</h2>
+
+      <!-- Section to filter the display of the cars -->
+      {% include "partials/car/_show_filters_block.html.twig" %}
+      
+      <!-- Section to display the cars -->
+      <section class="sale_article_cars">
+        {% for car in cars %}
+          {% include "partials/car/_car_block.html.twig" %}
+        {% endfor %}
+      </section>
+
+    </article>
+
+  {% endif %}
+
+{% endblock %}

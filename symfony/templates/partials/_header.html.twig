@@ -1,0 +1,18 @@
+<header>
+  <!-- Connexion page -->
+  <a class="link" href="{{ path('app_admin') }}">Accès employés</a>
+  
+  <!-- Logo and return to home page -->
+  <a href="{{ path('app_home') }}">
+    <img class="logoGarage" src={{ asset('images/logo/logoGarage.svg')}} alt="Logo du garage de Vincent Parrot"/>
+  </a>
+
+  <!-- Navigation to the main sections of the website -->
+  <nav class="header_navigation">
+    <ul>
+      {% for prestation in prestationList %}
+        <li><a class="link" href="{{ path('app_show_prestations', {'id': prestation.id}) }}">{{prestation.title}}</a></li>
+      {% endfor %}
+    </ul>
+  </nav>
+</header>

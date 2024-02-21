@@ -1,0 +1,45 @@
+<footer>
+  <section class="footer_section">
+
+  <!-- Contact section -->
+    <div class="contact">
+      <h2>Contact</h2>
+      <p>Téléphone: 01 42 92 81 00</p>
+      <p><a class="link" href="{{ path('app_contact') }}">
+        Nous laisser un message
+      </a></p>
+    </div>
+
+    <!-- Opening hours section -->
+    <div class="openingHours"> 
+      <ul>
+        <h2>Horaires d'ouverture</h2>
+        {% for openingHour in openingHourList %}
+          <li>{{ openingHour.openDay }} {{ openingHour.openHour }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Courtesy section -->
+  <div id="footer_courtesy">
+    &#169; 2024-2034 | All rights reserved | Sources des images
+    <!-- Popup to display the sources of the images -->
+    <ul id="footer_courtesy_popup" class="invisible">Images par 
+      <li>Clker-Free-Vector-Images de Pixabay : Logo</li>
+      <li>Stefan Schweihofer de Pixabay : illustration de la section carrosserie</li>
+      <li>Excel Automotive de Pixabay : illustration de la section entretien</li>
+      <li>Toby Parsons de Pixabay : illustration de la section mécanique</li>
+      <li>Peter H de Pixabay : illustration de la section vente</li>
+      <li>18193486 de Pixabay : voiture</li>
+      <li>Angeli Cooke de Pixabay : voiture</li>
+      <li>Gunther Schneider de Pixabay : voiture</li>
+      <li>Noel Bauza de Pixabay : voiture</li>
+      <li>NoName 13 de Pixabay : voiture</li>
+      <li>Oleksander Pyrohov de Pixabay : voiture</li>
+      <li>Pexels de Pixabay : voiture</li>
+      <li>PIRO de Pixabay : voiture</li>
+      <li>Wild Pixar de Pixabay : voiture</li>
+    </ul>
+  </div>
+</footer>

@@ -1,0 +1,5 @@
+<!-- Article to present the prestation -->
+<a class="index_service" href="{{ path('app_show_prestations', {'id': prestation.id}) }}">
+  <img src="{{ vich_uploader_asset(prestation, 'imageFile') }}" alt="Illustration for the prestation : {{ prestation.title }}">
+  <h3>{{ prestation.title }}</h3>
+</a>
