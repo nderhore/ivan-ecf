@@ -1,6 +1,19 @@
 <header>
   <!-- Connexion page -->
-  <a class="link" href="{{ path('app_admin') }}">Accès employés</a>
+  <nav class="header_navigation">
+    <ul>
+      {% if user %}
+        <li><p class="user_label">{{ user.email }}</p></li>
+        {% if user.roles[0] == 'ROLE_ADMIN' %}
+          <li><a class="link" href="{{ path('app_admin') }}">Espace administrateur</a></li>
+        {% endif %}
+        <li><a class="link" href="{{ path('app_logout') }}">Se déconnecter</a></li>
+        {% else %}
+        <li><a class="link" href="{{ path('app_login') }}">Se connecter</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+
   
   <!-- Logo and return to home page -->
   <a href="{{ path('app_home') }}">

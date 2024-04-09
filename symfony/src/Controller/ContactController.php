@@ -8,6 +8,7 @@ use App\Repository\ContactsRepository;
 use App\Repository\OpeningHoursRepository;
 use App\Repository\PrestationsRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use PhpParser\Builder\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,4 +49,14 @@ class ContactController extends AbstractController
             'formList' => $formList,
         ]);
     }
+
+    #[Route('/contact/{id}', name: 'app_contact_delete', methods: ['DELETE'])]
+    public function delete(Contacts $contacts, EntityManagerInterface $em) {
+        $em->remove($contacts);
+        $em->flush();
+
+        $this->addFlash('success', 'Le formulaire de contact a bien été supprimé');
+        return $this->redirectToRoute('app_contact');
+    }
+
 }

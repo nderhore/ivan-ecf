@@ -54,6 +54,16 @@ table {
 }
 /* Polices - END */
 
+/* Colors - START */
+:root {
+    --red: #D94350FF;
+    --dark: #262526FF;
+    --pale-grey: #F2F2F2FF;
+    --pale-red: #D9777FFF;
+  }
+  /* Colors - END */
+
+
 /* Static styles - START */
 /* Part in commun with all pages - START*/
 body {
@@ -73,8 +83,8 @@ header {
     padding: 5px;
 
     /* Header colors */
-    background-color: #262526FF;
-    color: #D94350FF;
+    background-color: var(--dark);
+    color: var(--red);
 
     /* Header arrangement */
     display: flex;
@@ -87,6 +97,19 @@ header {
     height: 75px;
     width: auto;
 }
+
+.user_label {
+    height: fit-content;
+    width: auto;   
+    margin: 1rem 0;
+    padding: 0.2rem;
+    border-radius: 0.2rem;
+
+    /* Link colors */
+    background-color: var(--pale-red);
+    color: var(--dark);
+    font: bold 0.8rem "Rajdani", sans-serif;
+  }
 /* Header - END */
 
 /* Footer - START */
@@ -98,8 +121,8 @@ footer {
     padding: 5px;
 
     /* Footer colors */
-    background-color: #262526FF;
-    color: #F2F2F2FF;
+    background-color: var(--dark);
+    color: var(--pale-grey);
 
     /* Footer arrangement */
     display: flex;
@@ -122,8 +145,8 @@ footer {
 
 #footer_courtesy_popup {
     /* courtesy popup colors */
-    background-color: #d94350FF;
-    color: #262526FF;
+    background-color: var(--red);
+    color: var(--dark);
 
     /* courtesy popup position in 3D */
     position: absolute;
@@ -133,14 +156,14 @@ footer {
 /* Footer - END */
 
 h2 {
-    color: #d94350FF;
+    color: var(--red);
     text-align: center;
     font: bold 1.5rem "Rajdani", sans-serif;
     margin: 1rem;
 }
 
 h3 {
-    color: #262526FF;
+    color: var(--dark);
     font: bold 1.2rem "Barlow", sans-serif;
 }
 
@@ -168,13 +191,13 @@ a {
      border-radius: 0.2rem;
  
      /* Link colors */
-     background-color: #D94350FF;
-     color: #262526FF;
+     background-color: var(--red);
+     color: var(--dark);
      font: bold 0.8rem "Rajdani", sans-serif;
 }
 
 .active-page_link {
-    background-color: #F2F2F2FF;
+    background-color: var(--pale-grey);
 }
 
 /* article dimensions */
@@ -200,13 +223,13 @@ input {
 
 /* Index - START */
 .index_article_services  {
-    background-color: #262526FF;
-    color: #F2F2F2FF;
+    background-color: var(--dark);
+    color: var(--pale-grey);
 }
 
 .index_article_presentation, .index_article_opinion, .index_service {
-    background-color: #F2F2F2FF;
-    color: #262526FF;
+    background-color: var(--pale-grey);
+    color: var(--dark);
 }
 
 .index_services_div {
@@ -234,8 +257,8 @@ input {
 
 /* Car-body & Mecanic & Maintenance & Sale presentation articles - START */
 .prestation_article {
-    background-color: #F2F2F2FF;
-    color: #262526FF;
+    background-color: var(--pale-grey);
+    color: var(--dark);
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -253,14 +276,14 @@ input {
 
 /* Sale - START */
 .sale_article {
-    background-color: #F2F2F2FF;
+    background-color: var(--pale-grey);
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .sale_article_title {
-    background-color: #262526FF;
+    background-color: var(--dark);
     width: 100%;
 }
 
@@ -276,7 +299,7 @@ input {
 }
 
 .sale_filters_kilometer, .sale_filters_price, .sale_filters_year {
-    background-color: #D9777FFF;
+    background-color: var(--pale-red);
     width: 25%;
     height: auto;
 }
@@ -297,8 +320,8 @@ input {
 }
 
 .sale_article_car {
-    background-color: #262526FF;
-    color: #F2F2F2FF;
+    background-color: var(--dark);
+    color: var(--pale-grey);
     width: 20%;
     height: auto ;
     margin: 1rem 0;
@@ -306,8 +329,8 @@ input {
 
 
 .sale_navigation_div {
-    background-color: #262526FF;
-    color: #F2F2F2FF;
+    background-color: var(--dark);
+    color: var(--pale-grey);
     padding: 0.2rem;
 }
 .sale_navigation_page {
@@ -320,7 +343,7 @@ input {
 .contact_article, .opinion_article, .connection_article {
     display: flex;
     flex-direction: column;
-    background-color: #F2F2F2FF;
+    background-color: var(--pale-grey);
     align-items: center;
     justify-content: center;
     width: 100%;
@@ -333,8 +356,8 @@ input {
     align-items: center;
     justify-content: center;
     width: 100%;
-    background-color: #262526FF;
-    color: #F2F2F2FF;
+    background-color: var(--dark);
+    color: var(--pale-grey);
 }
 
 .contact_form_shorts {
@@ -372,7 +395,7 @@ a:hover, .link, #footer_courtesy {
 
 
 /* Responsive */
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 900px) {
     /* Hide the navigation menu in the header */
     .header_navigation {
         visibility: collapse;

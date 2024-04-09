@@ -1,0 +1,586 @@
+création du projet : symfony new symfony --webapp
+
+aller dans le dossier créé : cd symfony
+
+lancer le serveur : symfony server:start -d
+
+créer le controller de la page d'accueil : symfony console make:controller HomeController
+
+Dans le fichier HomeController.php, remplacer /home par / dans la route
+Dans le dossier templates créer un dossier partials
+Dans le dossier partials créer un fichier _header.html.twig et un fichier _footer.html.twig
+Dans le dossier templates, modifier le fichier base.html.twig
+
+Dans le dossier assets => styles, créer un fichier styles.css
+Dans le dossier assets, créer un dossier scripts et y créer un fichier scripts.js
+
+Dans le dossier public, créer un dossier images et y coller les images.
+
+
+Easyadmin : composer require easycorp/easyadmin-bundle
+
+Création du dashboard : 
+ - php bin/console make:admin:dashboard
+ - dans dashboardController.php => fonction index => remplacer return parent::index(); par return $this->render('admin/dashboard.html.twig');
+ - dans le dossier templates
+     - Créer un dossier admin
+     - Dans ce dossier admin, créer un nouveau fichier dashboard.html.twig
+     - Dans ce fichier, coller
+
+{% extends '@EasyAdmin/page/content.html.twig' %}
+{% block title %}
+    Les recettes de Sandrine Coupart, diététicienne et nutritionniste - Page admin
+{% endblock %}
+{% block content_title %}Tableau de bord{% endblock %}
+{% block main %}
+  <h2>Bienvenue Sandrine</h2>
+{% endblock %}
+
+
+Modifier l'url de la database dans le fichier .env : DATABASE_URL="mysql://root:@127.0.0.1:3306/ECF_nutritionniste?serverVersion=mariadb-10.4.32&charset=utf8mb4"
+
+Sécuriser l'interface d'administration
+ - créer l'entité Users : symfony console make:user Users
+ - faire la migration vers la base de données :
+     - symfony console make:migration
+     - symfony console doctrine:migrations:migrate -n
+
+Configurer le système d'authentification
+ - symfony console make:auth
+     - 1 => login
+     - AppCustomAuthenticator
+     - Paramètres par défauts (x3)
+     - 0 activate when the user checks a box
+
+ - Dans le fichier AppCustomAuthenticator.php, modifier la fonction onAuthentication Success
+	-     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
+    		{
+        	if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
+           	 	return new RedirectResponse($targetPath);
+        	} else {
+            		return new RedirectResponse('/');
+        	}
+
+Ajouter les règles de contrôle d'accès
+ - dans le fichier config => packages => security.yaml : - { path: ^/admin, roles: ROLE_ADMIN }
+
+Dans le base de données => users, créer l'admin
+ - email : rentrer l'adresse mail
+ - générer le mot de passe : symfony console security:hash-password et le coller dans password.
+ - roles : ["ROLE_ADMIN"]
+
+Créer les entités
+ - symfony console make: entity : Users
+     - user_lastname : string(60)
+     - user_firstname : string(60)
+     - user_phone : string(20)
+     - user_allergen_ID : relation => Allergens => ManyToMany => allergen_users
+     - user_diet_ID : relation => Diets => ManyToMany => diet_users
+
+ - faire la migration vers la base de données :
+     - symfony console make:migration
+     - symfony console doctrine:migrations:migrate -n
+
+ - symfony console make:entity : Contacts
+     - contact_lastname : string(60)
+     - contact_firstname : string(60)
+     - contact_email : string(255)
+     - contact_phone : string(20)
+     - contact_title : string(255)
+     - contact_message : text
+
+ - faire la migration vers la base de données :
+     - symfony console make:migration
+     - symfony console doctrine:migrations:migrate -n
+
+ - symfony console make:entity : Allergens
+     - allergen_name : string(60)
+
+ - faire la migration vers la base de données :
+     - symfony console make:migration
+     - symfony console doctrine:migrations:migrate -n
+
+ - symfony console make:entity : Diets
+     - diet_name : string(60)
+
+ - faire la migration vers la base de données :
+     - symfony console make:migration
+     - symfony console doctrine:migrations:migrate -n
+
+ - symfony console make:entity : Recipes
+     - recipe_title : string(255)
+     - recipe_description : string(255)
+     - recipe_prep_duration : integer
+     - recipe_rest_duration : integer
+     - recipe_cook_duration : integer
+     - recipe_ingredient : text
+     - recipe_step : text
+     - recipe_allergen_ID : relation => Allergens => ManyToMany => allergen_recipes
+     - recipe_diet_ID : relation => Diets => ManyToMany => diet_recipes
+     - recipe_is_public : boolean
+
+ - faire la migration vers la base de données :
+     - symfony console make:migration
+     - symfony console doctrine:migrations:migrate -n
+
+ - symfony console make:entity : Opinions
+     - opinion_user_ID : relation => Users => ManyToOne => user_opinions
+     - opinion_recipe_ID : relation => Recipes => ManyToOne => recipe_opinions
+     - opinion_message : text
+     - opinion_rate : integer
+     - opinion_is_validated : boolean
+
+ - faire la migration vers la base de données :
+     - symfony console make:migration
+     - symfony console doctrine:migrations:migrate -n
+
+
+Easyadmin : création des CRUD
+ - php bin/console make:admin:crud
+     - Allergens
+     - Contacts
+     - Diets
+     - Opinions
+     - Recipes
+     - Users
+
+ - Ajouter au fichier dashboardController.php => fonction configureMenuItems
+     public function configureMenuItems(): iterable
+    	{
+        	yield MenuItem::linkToDashboard('Tableau de bord', 'fa fa-home');
+        	yield MenuItem::linkToCrud('Allergènes', 'fa-solid fa-hand-dots', Allergens::class);
+        	yield MenuItem::linkToCrud('Formulaires de contact', 'fa-solid fa-envelope', Contacts::class);
+        	yield MenuItem::linkToCrud('Régimes', 'fa-solid fa-carrot', Diets::class);
+        	yield MenuItem::linkToCrud('Avis', 'fa-solid fa-star-half-stroke', Opinions::class);
+        	yield MenuItem::linkToCrud('Recettes', 'fa-solid fa-utensils', Recipes::class);
+        	yield MenuItem::linkToCrud('Utilisateurs', 'fa-solid fa-users', Users::class);
+    	}
+
+ - Dans le fichier dashboardController.php => après le namespace, vérifier la présence de :
+     - use App\Entity\Allergens;
+     - use App\Entity\Contacts;
+     - use App\Entity\Diets;
+     - use App\Entity\Opinions;
+     - use App\Entity\Recipes;
+     - use App\Entity\Users;
+
+- A l'aide du dashboard, remplir les tables de la base de données.
+
+
+ - Modification dans le fichier users.php : 
+     - remplacement de user_allergen_id par user_allergens
+     - remplacement de userAllergenID par userAllergens
+     - remplacement de user_diet_id par user_diets
+     - remplacement de userDietID par userDiets
+     - remplacement de opinion_user_ID par opinion_users
+     - remplacement de OpinionUserID par OpinionUsers
+
+ - Modification dans le fichier allergens.php : 
+     - remplacement de recipeAllergenID par recipeAllergens
+     - remplacement de userAllergenID par userAllergens
+
+ - Modification dans le fichier diets.php : 
+     - remplacement de recipeDietID par recipeDiets
+     - remplacement de userDietID par userDiets
+
+ - Modification dans le fichier Recipes.php : 
+     - remplacement de recipe_allergen_id par recipe_allergens
+     - remplacement de recipeAllergenID par recipeAllergens
+     - remplacement de recipe_diet_id par recipe_diets
+     - remplacement de recipeDietID par recipeDiets
+     - remplacement de opinion_recipe_ID par opinion_recipes
+
+ - Modification dans le fichier Opinions.php : 
+     - remplacement de opinion_user_id par opinion_users
+     - remplacement de opinionUserID par opinionUsers
+     - remplacement de opinion_recipe_id par opinion_recipes
+     - remplacement de opinionRecipeID par opinionRecipes
+
+ - faire la migration vers la base de données :
+     - symfony console make:migration
+     - symfony console doctrine:migrations:migrate -n
+
+
+Afficher les relations de User dans le dashboard
+
+ - Dans le fichier UsersCrudController.php, ajouter la fonction
+	public function configureFields(string $pageName): iterable
+    		{
+        	yield EmailField::new('email', 'Email');
+        	yield TextField::new('password', 'Mot de passe');
+        	yield ArrayField::new('roles', 'Role');
+        	yield TextField::new('user_firstname', 'Prénom');
+        	yield TextField::new('user_lastname', 'Nom');
+        	yield TelephoneField::new('user_phone', 'Téléphone');
+
+       		yield AssociationField::new('user_diets', 'Régimes');
+        	yield AssociationField::new('user_allergens', 'Allergènes');
+    	}
+
+ - Dans le fichier Allergens.php, ajouter la fonction
+	public function __toString()
+		{
+       			return $this->getAllergenName();
+    		}
+
+ - Dans le fichier Users.php, ajouter la fonction
+	public function __toString()
+   		{
+        		return $this->getDietName();
+    		}
+
+
+Afficher les relations de Recipes dans le dashboard
+
+ - Dans le fichier RecipesCrudController.php, ajouter la fonction
+	public function configureFields(string $pageName): iterable
+    		{
+        	yield TextField::new('recipe_title', 'Titre');
+        	yield TextField::new('recipe_description', 'Description');
+        	yield TextField::new('recipe_image', 'Image');
+        	yield IntegerField::new('recipe_prep_duration', 'Temps de préparation');
+        	yield IntegerField::new('recipe_rest_duration','Temps de repos');
+        	yield IntegerField::new('recipe_cook_duration','Temps de cuisson');
+        	yield TextareaField::new('recipe_ingredient', 'Ingrédients');
+        	yield TextareaField::new('recipe_step', 'Etapes');
+        	yield BooleanField::new('recipe_is_public', 'Recette publique?');
+
+        	yield AssociationField::new('recipe_diets', 'Régimes');
+        	yield AssociationField::new('recipe_allergens', 'Allergènes');
+   		}
+
+
+Afficher les relations de Opinions dans le dashboard
+
+ - Dans le fichier OpinionsCrudController.php, ajouter la fonction
+	public function configureFields(string $pageName): iterable
+    	{
+       		yield TextareaField::new('opinion_message', 'Commentaire');
+        	yield ChoiceField::new('opinion_rate','Note')->setChoices([
+            		'1' => '1',
+            		'2' => '2',
+            		'3' => '3',
+            		'4' => '4',
+            		'5' => '5',
+        	])->renderExpanded();
+        	yield BooleanField::new('opinion_is_validated', 'Avis validé?');
+
+        	yield AssociationField::new('opinion_users', 'Utilisateurs');
+        	yield AssociationField::new('opinion_recipes', 'Recettes');
+    	}
+
+ - Dans le fichier Users.php, ajouter la fonction
+    	public function __toString()
+   		{
+        		return $this->getUserFirstname().' '.$this->getUserLastname();
+    		}
+
+ - Dans le fichier Recipes.php, ajouter la fonction
+    	public function __toString()
+    		{
+        		return $this->getRecipeTitle();
+    		}
+
+
+Hashage du mot de passe
+
+ - Dans le fichier UsersCrudController.php, remplacer tout le contenu par :
+
+<?php
+
+namespace App\Controller\Admin;
+
+use App\Entity\Users;
+use EasyCorp\Bundle\EasyAdminBundle\Config\{Action, Actions, Crud, KeyValueStore};
+use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
+use EasyCorp\Bundle\EasyAdminBundle\Field\{ArrayField, AssociationField, ChoiceField, IdField, EmailField, TelephoneField, TextField};
+use Symfony\Component\Form\Extension\Core\Type\{PasswordType, RepeatedType};
+use Symfony\Component\Form\{FormBuilderInterface, FormEvent, FormEvents};
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+
+class UsersCrudController extends AbstractCrudController
+{
+    public function __construct(
+        public UserPasswordHasherInterface $userPasswordHasher
+    ) {}
+
+    public static function getEntityFqcn(): string
+    {
+        return Users::class;
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+            ->add(Crud::PAGE_EDIT, Action::INDEX)
+            ->add(Crud::PAGE_INDEX, Action::DETAIL)
+            ->add(Crud::PAGE_EDIT, Action::DETAIL)
+            ;
+    }
+
+    public function configureFields(string $pageName): iterable
+    {
+        $fields = [
+            //IdField::new('id')->hideOnForm(),
+            EmailField::new('email', 'Email'),
+            //TextField::new('password', 'Mot de passe'),
+            ChoiceField::new('roles', 'Role')
+            ->setChoices(['ROLE_ADMIN' => 'ROLE_ADMIN', 'ROLE_USER' => 'ROLE_USER'])
+            ->allowMultipleChoices()
+            ->renderExpanded(),
+            TextField::new('user_firstname', 'Prénom'),
+            TextField::new('user_lastname', 'Nom'),
+            TelephoneField::new('user_phone', 'Téléphone'),
+
+            AssociationField::new('user_diets', 'Régimes'),
+            AssociationField::new('user_allergens', 'Allergènes'),
+        ];
+
+        $password = TextField::new('password')
+            ->setFormType(RepeatedType::class)
+            ->setFormTypeOptions([
+                'type' => PasswordType::class,
+                'first_options' => ['label' => 'Password'],
+                'second_options' => ['label' => '(Repeat)'],
+                'mapped' => false,
+            ])
+            ->setRequired($pageName === Crud::PAGE_NEW)
+            ->onlyOnForms()
+            ;
+        $fields[] = $password;
+
+        return $fields;
+    }
+
+    public function createNewFormBuilder(EntityDto $entityDto, KeyValueStore $formOptions, AdminContext $context): FormBuilderInterface
+    {
+        $formBuilder = parent::createNewFormBuilder($entityDto, $formOptions, $context);
+        return $this->addPasswordEventListener($formBuilder);
+    }
+
+    public function createEditFormBuilder(EntityDto $entityDto, KeyValueStore $formOptions, AdminContext $context): FormBuilderInterface
+    {
+        $formBuilder = parent::createEditFormBuilder($entityDto, $formOptions, $context);
+        return $this->addPasswordEventListener($formBuilder);
+    }
+
+    private function addPasswordEventListener(FormBuilderInterface $formBuilder): FormBuilderInterface
+    {
+        return $formBuilder->addEventListener(FormEvents::POST_SUBMIT, $this->hashPassword());
+    }
+
+    private function hashPassword() {
+        return function($event) {
+            $form = $event->getForm();
+            if (!$form->isValid()) {
+                return;
+            }
+            $password = $form->get('password')->getData();
+            if ($password === null) {
+                return;
+            }
+
+            $hash = $this->userPasswordHasher->hashPassword($this->getUser(), $password);
+            $form->getData()->setPassword($hash);
+        };
+    }
+}
+
+
+Note : la ligne "$hash = $this->userPasswordHasher->hashPassword($this->getUser(), $password);" indique une erreur mais ça fonctionne
+
+
+Gestion des images : vich uploader bundle (https://github.com/dustin10/VichUploaderBundle/blob/master/docs/index.md)
+
+ - composer require vich/uploader-bundle
+     -  yes => y
+
+ - Dans le fichier config => packages => vich_uploader.yaml, ajouter le mapping :
+     -     mappings:
+        	recipes:
+            		uri_prefix: /images/recipes
+            		upload_destination: '%kernel.project_dir%/public/images/recipes'
+            		namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+ - Créer le dossier public => images => recipes : les fichiers seront uploadé dans ce dossier
+
+ - Dans le fichier src => Entity => Recipes.php, ajouter
+     - use Symfony\Component\HttpFoundation\File\File;
+     - use Vich\UploaderBundle\Mapping\Annotation as Vich;	dans la partie use
+     - #[Vich\Uploadable]					sous #[ORM\Entity...]
+
+ - Dans le fichier src => Entity => Recipes.php ajouter
+     - les propriétés (à la suite des autres propriétés)
+    		/* VichUploader properties - START */
+    		#[Vich\UploadableField(mapping: 'recipes', fileNameProperty: 'recipeImageName', size: 'recipeImageSize')]
+    		private ?File $imageFile = null;
+
+    		#[ORM\Column(nullable: true)]
+    		private ?string $recipeImageName = null;
+
+    		#[ORM\Column(nullable: true)]
+    		private ?int $recipeImageSize = null;
+
+    		#[ORM\Column(nullable: true)]
+    		private ?\DateTimeImmutable $recipeImageUpdatedAt = null;
+
+    		/* VichUploader properties - END */
+
+     - les méthodes (à la suite des autres méthodes)
+
+		/* VichUploader methods - START */
+
+    		public function setImageFile(?File $imageFile = null): void
+    		{
+        		$this->imageFile = $imageFile;
+
+        		if (null !== $imageFile) {
+            			// It is required that at least one field changes if you are using doctrine
+            			// otherwise the event listeners won't be called and the file is lost
+            			$this->recipeImageUpdatedAt = new \DateTimeImmutable();
+        		}
+    		}
+
+   		public function getImageFile(): ?File
+    		{
+       		return $this->imageFile;
+    		}
+
+    		public function setRecipeImageName(?string $recipeImageName): void
+    		{
+        		$this->recipeImageName = $recipeImageName;
+    		}
+
+    		public function getRecipeImageName(): ?string
+    		{
+        		return $this->recipeImageName;
+    		}
+
+   		public function setRecipeImageSize(?int $recipeImageSize): void
+    		{
+        		$this->recipeImageSize = $recipeImageSize;
+    		}
+
+    		public function getRecipeImageSize(): ?int
+    		{
+        		return $this->recipeImageSize;
+    		}
+
+    		/* VichUploader methods - END */
+
+ - Dans le fichier Admin => RecipesCrudController.php ajouter
+     - yield TextareaField::new('imageFile', 'Image')->setFormType(VichImageType::class)->hideOnIndex();	// pour afficher l'image dans la création de recettes
+
+     - $mappingsParams = $this->getParameter('vich_uploader.mappings');
+     - $recipesImagePath = $mappingsParams['recipes']['uri_prefix'];
+     - yield ImageField::new('recipe_image_name')->setBasePath($recipesImagePath)->hideOnForm();		// pour afficher l'image dans le dashboard recettes
+        
+ - faire la migration vers la base de données :
+     - symfony console make:migration
+     - symfony console doctrine:migrations:migrate -n
+
+
+
+Rajout des sources (texte et image) dans la base de recettes
+
+ - symfony make:entity
+	- recipes
+	- recipe_source		string
+	- recipe_image_source	string
+
+ - faire la migration vers la base de données :
+     - symfony console make:migration
+     - symfony console doctrine:migrations:migrate -n
+
+ - Ajouter les champs dans le CRUD
+	- yield TextField::new('recipe_source', 'Source de la recette');
+        - yield TextField::new('recipe_image_source', "Source de l'image");
+
+
+Afficher les recettes
+
+ - symfony console make:controller RecipeController
+
+
+
+Formulaire d'avis des recettes
+
+ - symfony console make:form
+	- name : OpinionType
+	- entité : Opinions
+
+ - Dans la fonction show_recipe du fichier RecipesController.php, ajouter
+	- $opinion = new Opinions();					Avant le render
+        - $form = $this->createForm(OpinionType::class, $opinion);	Avant le render
+	- 'form' => $form, 						Dans le render
+
+ - Dans le dossier partials, créer un nouveau dossier opinion et créer un nouveau fichier _form.html.twig dans ce sous dossier.
+	- {{ form_start(form) }}
+  		- {{ form_widget(form)}}
+
+  		- <button class='link'>Enregistrer</button>
+  
+	- {{ form_end(form) }}
+
+
+
+
+Afficher la note moyenne
+
+ - Dans le fichier OpinionsRepository.php, ajouter la fonction (en s'appuyant sur les noms du fichier Opinions.php)
+	public function getAverageRateByRecipeID($recipeId): float|null
+        	{
+            		return $this->createQueryBuilder('r')
+                		->select('AVG(r.opinion_rate) as averageRate')
+                		->where('r.opinion_recipes = :opinion_recipes')
+                		->setParameter('opinion_recipes', $recipeId)
+                		->getQuery()
+                		->getSingleScalarResult()
+            		;
+        	}
+
+ - Dans le fichier RecipeController.php, ajouter
+	// Average rate : linked to OpinionsRepository.php function getAverageRateByRecipeID
+        $averageRate = $opinionsRepository->getAverageRateByRecipeID($recipe->getId());
+
+	'averageRate' => $averageRate,		(dans le render)
+
+ - Dans le fichier show_recipe_page.html.twig
+	<!-- Display of the average rate -->
+        {% if averageRate %}
+          <p>Note moyenne : {{ averageRate }}/5</p>
+        {% else %}
+          <p>Il n'y a pas encore de note</p>
+        {% endif %}
+
+
+
+Formulaire d'opinion
+
+ - symfony console make:form
+	- name : ContactType
+	- entité : Contacts
+
+ - symfony console make:controller
+	- name : ContactController
+ 
+ - modifier le nom du template en show_contact_page.html.twig
+
+ - Dans la fonction show_recipe du fichier RecipesController.php, ajouter
+	$contact = new Contacts();						Avant le render
+        $contactForm = $this->createForm(ContactType::class, $contact);		Avant le render
+	'contactForm' => $contactForm, 						Dans le render
+
+
+
+*** à faire
+ - Dans le dossier partials, créer un nouveau dossier opinion et créer un nouveau fichier _form.html.twig dans ce sous dossier.
+	- {{ form_start(form) }}
+  		- {{ form_widget(form)}}
+
+  		- <button class='link'>Enregistrer</button>
+  
+	- {{ form_end(form) }}
+	

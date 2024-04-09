@@ -54,7 +54,12 @@
                         <p class="contact_form_subject">Sujet: {{ oneForm.title}}</p>
                         <p class="contact_form_message">Message: {{ oneForm.message}}</p>
                     </div>
-                    <button class="link" type"button">Effacer</button>
+
+                <form action="{{ path('app_contact_delete', {id: oneForm.id} )}}" method= "post">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="link">Supprimer</button>
+                </form>
+
                 </section>
             {% endfor %}
         </article>

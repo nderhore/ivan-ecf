@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\OpeningHoursRepository;
 use App\Repository\PrestationsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -12,12 +13,15 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController
 {
     #[Route(path: '/login', name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils,
+    public function login(Security $security, 
+    AuthenticationUtils $authenticationUtils,
     PrestationsRepository $prestationsRepository, 
     OpeningHoursRepository $openingHoursRepository): Response
     {
         $openingHourList = $openingHoursRepository->findBy([],['id' => 'ASC']);
         $prestationList = $prestationsRepository->findBy([],['id' => 'ASC']);
+
+        $user = $security->getUser();
 
         // if ($this->getUser()) {
         //     return $this->redirectToRoute('target_path');
@@ -31,7 +35,8 @@ class SecurityController extends AbstractController
         return $this->render('security/login.html.twig', [
             'openingHourList' => $openingHourList,
             'prestationList' => $prestationList,
-            'last_username' => $lastUsername, 'error' => $error
+            'last_username' => $lastUsername, 'error' => $error,
+            'user' => $user,
         ]);
     }
 
