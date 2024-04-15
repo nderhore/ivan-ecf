@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Garage Vincent Parrot - Véhicule d'occasion{% endblock %}
+
+{% block body %}
+  <article class="car_article">
+
+    <!-- Article to present the service: car sale -->
+
+    <section class="car_section">
+      <h2 class="car_article_title">{{ car.title }}</h2>
+
+      <div class='car_image'>
+        {% if car.imageName %}
+          <img src="{{ vich_uploader_asset(car, 'imageFile') }}" alt="Photo of the car for sale : {{ car.title }}">
+        {% else %}
+          <img src="{{ asset('images/logo/logoGarage.svg') }}" alt="Photo of the car for sale : {{ car.title }}">
+        {% endif %}
+      </div>
+      <div class='car_text'>
+        <ul>
+          <li>Année : <em  class="year">{{ car.buildYear }}</em></li>
+          <li>Carburant : <em class="fuel">{{ car.fuel }}</em></li>
+          <li>Kilométrage : <em class="km">{{ car.kilometer }}</em>km</li>
+          <li>Prix : <em class="price">{{ car.price }}</em>€</li>
+        </ul>
+        <a href="{{ path('app_contact', {'id': car.id}) }}" class="link">Nous contacter</a>
+      </div>
+    </section>
+    
+  </article>
+
+
+{% endblock %}

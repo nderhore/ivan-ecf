@@ -78,9 +78,7 @@ body {
 header {
     /* Header dimensions */
     height: fit-content;
-    width: 100%;   
-    margin: 0 5px;
-    padding: 5px;
+    width: 100%;
 
     /* Header colors */
     background-color: var(--dark);
@@ -116,9 +114,7 @@ header {
 footer {
     /* Footer dimensions */
     height: fit-content;
-    width: auto;   
-    margin: 0 5px;
-    padding: 5px;
+    width: auto;
 
     /* Footer colors */
     background-color: var(--dark);
@@ -141,6 +137,10 @@ footer {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+}
+
+.contact, .openingHours {
+    margin: 0 1rem;
 }
 
 #footer_courtesy_popup {
@@ -204,7 +204,6 @@ a {
 article {
     height: fit-content;
     width: auto;   
-    margin: 0 5px;
     padding: 5px;
 }
 
@@ -337,16 +336,52 @@ input {
     width: 2rem;
 }
 
-/* Sale - END */
 
-/* Contact & Opinion & Connection - START */
-.contact_article, .opinion_article, .connection_article {
+.car_article {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.car_section {
     display: flex;
     flex-direction: column;
-    background-color: var(--pale-grey);
+    width: auto;
+    height: auto;
     align-items: center;
     justify-content: center;
+    background-color: var(--dark);
+    color: var(--pale-grey);
+    
+    margin: 1rem 0;
+}
+
+.car_image {
+    width: fit-content;
+    margin: 1rem;
+}
+
+.car_text {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Sale - END */
+
+
+/* Contact & Opinion & Connection - START */
+
+.confirmation_div {
+    background-color: var(--pale-red);
+    text-align: center;
+}
+
+.contact_article, .opinion_article, .connection_article {
     width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    background-color: var(--pale-grey);        
 }
 
 .contact_article_form, .opinion_article_form {
@@ -369,13 +404,15 @@ input {
     width: 100%;
 }
 
-.contact_form_short, .opinion_form_short, .contact_form_message, .opinion_form_comment {
+.contact_form_short, .contact_form_short_title, .opinion_form_short, .contact_form_message, .opinion_form_comment {
     width: auto;
     text-align: left;
 }
 
 /* Contact & Opinion - END */
+
 /* Static styles - END */
+
 
 /* Dynamic styles - START */
 .invisible {
@@ -398,7 +435,11 @@ a:hover, .link, #footer_courtesy {
 @media screen and (max-width: 900px) {
     /* Hide the navigation menu in the header */
     .header_navigation {
-        visibility: collapse;
+        display: none;
+    }
+
+    .logoGarage {
+        margin-right: 1rem;
     }
 
     /* Home page */

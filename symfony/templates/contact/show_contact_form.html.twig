@@ -3,32 +3,63 @@
 {% block title %}Garage Vincent Parrot - Contact page{% endblock %}
 
 {% block body %}
+
+    {# Success messages #}
+    <article class="confirmation_article">
+        {% for flashMessage in app.flashes('success') %}
+            <div class="confirmation_div" role="alert">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+    </article>
+
     <article class="contact_article">
-        <h2>Nous contacter</h2>
         {{ form_start(contactForm) }}
+
+        <h2>Nous contacter</h2>
+        
             <section class="contact_article_form">
                 <div class="contact_form_shorts">
                     <p class="contact_form_short">
-                        {{ form_row(contactForm.firstname) }}
+                        {{ form_row(contactForm.firstname, {
+                            'label': 'Votre prénom : '
+                        }) }}
                     </p>
                     <p class="contact_form_short">
-                        {{ form_row(contactForm.lastname) }}
+                        {{ form_row(contactForm.lastname, {
+                            'label': 'Votre nom : '
+                        }) }}
+                    </p>
+                    <p class="contact_form_short">
+                        {{ form_row(contactForm.email, {
+                            'label': 'Votre email : '
+                        }) }}
                     </p>
                 </div>
+
                 <div class="contact_form_shorts">
                     <p class="contact_form_short">
-                        {{ form_row(contactForm.email) }}
+                        {{ form_row(contactForm.phone, {
+                            'label': 'Votre téléphone : '
+                        }) }}
                     </p>
-                    <p class="contact_form_short">
-                        {{ form_row(contactForm.phone) }}
+                    
+                    <p id='contactFormTitle' class="contact_form_short">
+                        {{ form_row(contactForm.title, {'attr': {
+                            'label': 'Le sujet du message : ',
+                            'class': 'foo',
+                        }
+                            
+                        }) }}
                     </p>
-                </div>
-                <div class="contact_form_shorts">
+                    
+                    {#
+                    {{ form_widget(contactForm.title )}}
+                    #}
                     <p class="contact_form_short">
-                        {{ form_row(contactForm.title) }}
-                    </p>
-                    <p class="contact_form_short">
-                        {{ form_row(contactForm.message) }}
+                        {{ form_row(contactForm.message, {
+                            'label': 'Votre message : '
+                        }) }}
                     </p>
                 </div>
             </section>

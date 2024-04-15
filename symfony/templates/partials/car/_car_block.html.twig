@@ -18,6 +18,6 @@
       <li>Kilométrage : <em class="km">{{ car.kilometer }}</em>km</li>
       <li>Prix : <em class="price">{{ car.price }}</em>€</li>
     </ul>
-    <a href="{{ path('app_contact') }}" class="link">Nous contacter</a>
+    <a href="{{ path('app_show_car', {'id': car.id}) }}" class="link">Voir l'annonce</a>
   </div>
 </article>
