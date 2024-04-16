@@ -24,9 +24,16 @@
 
     <article class="index_article_opinion">
         <h2>Avis des clients</h2>
-        <h3>9.4/10</h3>
-        <p>"Ce garage est excellent et les mécaniciens très professionnels. Je recommande."</p>
-        <p>F. Vincent</p>
-        <a class="link" href=""{{ path('app_home') }}"">Laisser un avis</a>
+        <!-- Display the average grade -->
+        {% if opinionToDisplay %}
+            <h3>Note moyenne :   {{ averageGrade }} / 5</h3>
+            <p> Commentaire : {{ opinionToDisplay.commentary }} </p>
+            <p> De : {{ opinionToDisplay.lastname }} </p>
+        {% else %}
+            <h3>Note moyenne : Il n'y a pas encore de note</h3>
+            <p> Commentaire : Il n'y a pas encore de commentaire </p>
+        {% endif %}
+        <a class="link" href="{{ path('app_opinion') }}">Laisser un avis</a>
     </article>
+
 {% endblock %}

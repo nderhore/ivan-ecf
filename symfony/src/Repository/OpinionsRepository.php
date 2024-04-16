@@ -21,6 +21,25 @@ class OpinionsRepository extends ServiceEntityRepository
         parent::__construct($registry, Opinions::class);
     }
 
+    public function getAverageGrade(): float
+    {
+        return $this->createQueryBuilder('a')
+            ->select('AVG(a.grade) as average')
+            ->andWhere('a.is_validated = true')
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
+
+    public function getValidatedOpinions(): array
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.is_validated = true')
+            ->orderBy('b.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 //    /**
 //     * @return Opinions[] Returns an array of Opinions objects
 //     */
