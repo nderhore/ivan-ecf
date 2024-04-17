@@ -185,7 +185,7 @@ a {
 .link, .active-page_link {
      /* Link dimensions */
      height: fit-content;
-     width: auto;   
+     width: fit-content;   
      margin: 1rem 0;
      padding: 0.2rem;
      border-radius: 0.2rem;
@@ -220,7 +220,8 @@ input {
 /* Part in commun with all pages - END*/
 
 
-/* Index - START */
+/* Home page - START */
+
 .index_article_services  {
     background-color: var(--dark);
     color: var(--pale-grey);
@@ -251,6 +252,31 @@ input {
 
 .index_article_opinion {
     text-align: center;
+}
+
+.carousel {
+    position: relative;
+}
+
+.carousel button {
+    position: absolute;
+    background: none;
+    border: none;
+    outline: none;
+    font-size: 3rem;
+    z-index: 2;
+    cursor: pointer;
+    color: var(--dark);
+    transform: translateY(-50%);
+    top: 50%;
+}
+
+#previous_button {
+    left: 5px;
+}
+
+#next_button {
+    right: 5px;
 }
 /* Index - END */
 
@@ -381,7 +407,8 @@ input {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    background-color: var(--pale-grey);        
+    background-color: var(--pale-grey);
+    padding: 0;        
 }
 
 .contact_article_form, .opinion_article_form {

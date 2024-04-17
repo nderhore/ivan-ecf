@@ -35,6 +35,13 @@
                             'label': 'Votre commentaire : '
                         }) }}
                     </p>
+                    {% if user %}
+                        <p class="opinion_form_short">
+                            {{ form_row(opinionForm.is_validated, {
+                                'label': 'Commentaire validé? '
+                            }) }}
+                        </p>
+                    {% endif %}
                 </div>
 
             </section>
@@ -42,17 +49,16 @@
         {{ form_end(opinionForm) }}
     </article>
 
-    
     {% if user %}
         <article class="opinion_article">
             <h2>Les commentaires des visiteurs</h2>
             {% for oneForm in opinionsFormList %}
                 <section class="opinion_article_form">
                     <div class="opinion_form_shorts">
-                        <p class="opinion_form_short">Nom: {{ oneForm.lastname}}</p>
-                        <p class="opinion_form_subject">Note: {{ oneForm.grade}}</p>
-                        <p class="opinion_form_message">Commentaire: {{ oneForm.commentary}}</p>
-                        <p class="opinion_form_validate">Validation: {{ oneForm.isvalidated}}</p>
+                        <p class="opinion_form_short">Nom : {{ oneForm.lastname}}</p>
+                        <p class="opinion_form_subject">Note : {{ oneForm.grade}} / 5</p>
+                        <p class="opinion_form_message">Commentaire : {{ oneForm.commentary}}</p>
+                        <p class="opinion_form_validate">Commentaire validé : {{ oneForm.isvalidated}}</p>
                     </div>
 
                     <div class="opinion_form_shorts">
@@ -60,10 +66,8 @@
                             <input type="hidden" name="_method" value="DELETE">
                             <button type="submit" class="link">Supprimer</button>
                         </form>
+                        <a href="{{ path('app_opinion_edit', {id: oneForm.id}) }}" class="link">Modifier</a>
                     </div>
-
-                
-
                 </section>
             {% endfor %}
         </article>

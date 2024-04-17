@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\OpinionsRepository;
+use Doctrine\DBAL\Types\Type;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -33,7 +34,7 @@ class Opinions
     #[Assert\Regex("/[1-5]+$/")]
     private ?int $grade = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(type: Types::BOOLEAN, nullable: true)]
     private ?bool $is_validated = null;
 
     public function getId(): ?int

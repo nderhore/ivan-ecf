@@ -62,17 +62,25 @@ if (typeof saleArticleFilters !== 'undefined') {
 /* Sale page : filter of the ads - END */
 
 
-/* Contact page : Value by default in the title - START */
+/* Home page : Carousel of the opinions - START */
 
-let contactFormTitle = document.getElementById('contactFormTitle');
-let foo = document.getElementsByClassName('foo');
+let previousButton = document.getElementById('previous_button');
+let nextButton = document.getElementById('next_button');
+let carouselComment = document.getElementById('carousel_comment');
+let carouselLastname = document.getElementById('carousel_lastname');
 
-window.onload = () => {
-  if (typeof contactFormTitle !== 'undefined') {
-    console.log('on est sur la page de contact');
-    console.log('contactFormTitle : ' + contactFormTitle.innerHTML);
-    console.log('foo : ' + foo.innerHTML);    
-  }
+if (typeof previousButton !== 'undefined') {
+
+  previousButton.addEventListener('click', ()=> {
+    console.log("j'ai cliqué sur le bouton previous");
+    console.log(carouselComment);
+  });
+
+  nextButton.addEventListener('click', ()=> {
+    console.log("j'ai cliqué sur le bouton next");
+    console.log(carouselLastname);
+  });
+
 }
 
-/* Contact page : Value by default in the title - END */
+/* Home page : Carousel of the opinions - START */

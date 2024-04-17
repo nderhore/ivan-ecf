@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Garage Vincent Parrot - Edit opinion page{% endblock %}
+
+{% block body %}
+
+    {# Success messages #}
+    <article class="confirmation_article">
+        {% for flashMessage in app.flashes('success') %}
+            <div class="confirmation_div" role="alert">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+    </article>
+
+    {% if user %}
+        <article class="opinion_article">
+            {{ form_start(opinionFormToEdit) }}
+
+            <h2>Modifier un commentaire</h2>
+            
+                <section class="opinion_article_form">
+                    <div class="opinion_form_shorts">
+                        <p class="opinion_form_short">
+                            {{ form_row(opinionFormToEdit.lastname, {
+                                'label': 'Nom : '
+                            }) }}
+                        </p>
+                        <p id='opinionFormTitle' class="opinion_form_short">
+                            {{ form_row(opinionFormToEdit.grade, {
+                                'label': 'Note : '
+                            }) }}
+                        </p>
+                        <p class="opinion_form_short">
+                            {{ form_row(opinionFormToEdit.commentary, {
+                                'label': 'Commentaire : '
+                            }) }}
+                        </p>
+                        <p class="opinion_form_short">
+                            {{ form_row(opinionFormToEdit.is_validated, {
+                                'label': 'Validation : '
+                            }) }}
+                        </p>
+                    </div>
+
+                </section>
+                <button class="link" type"button">Valider les modifications</button>
+            {{ form_end(opinionFormToEdit) }}
+        </article>
+    {% endif %}
+
+{% endblock %}

@@ -64,6 +64,47 @@ class OpinionController extends AbstractController
         ]);
     }
 
+    // Edit function : modify contact form
+
+    #[Route('/opinion/edit/{id}', name: 'app_opinion_edit')]
+    public function edit(
+        Opinions $opinion, 
+        Request $request, 
+        EntityManagerInterface $entityManagerInterface,
+        OpeningHoursRepository $openingHoursRepository,
+        PrestationsRepository $prestationsRepository,
+        Security $security,
+    ) 
+    {
+        // Informations for the header and the footer
+        $openingHourList = $openingHoursRepository->findBy([],['id' => 'ASC']);
+        $prestationList = $prestationsRepository->findBy([],['id' => 'ASC']);
+
+        $user = $security->getUser();
+
+        $opinionFormToEdit = $this->createForm(OpinionType::class, $opinion);
+        $opinionFormToEdit->handleRequest($request);
+
+        // Submission of the contact form
+        if ($opinionFormToEdit->isSubmitted() && $opinionFormToEdit->isValid()) {
+            $entityManagerInterface->persist($opinion);
+            $entityManagerInterface->flush();
+
+            $this->addFlash('success', 'Votre avis a bien été modifié');
+            return $this->redirectToRoute('app_opinion');
+        }
+
+
+        return $this->render('opinion/edit_opinion.html.twig', [
+            'openingHourList' => $openingHourList,
+            'prestationList' => $prestationList,
+            'user' => $user,
+            'opinion' => $opinion,
+            'opinionFormToEdit' => $opinionFormToEdit,
+
+        ]);
+    }
+
     // Delete function : remove contact form
 
     #[Route('/opinion/delete/{id}', name: 'app_opinion_delete', methods: ['DELETE'])]

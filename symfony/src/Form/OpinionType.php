@@ -3,14 +3,22 @@
 namespace App\Form;
 
 use App\Entity\Opinions;
+use Doctrine\DBAL\Types\BooleanType;
+use Doctrine\DBAL\Types\TextType;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class OpinionType extends AbstractType
 {
+    public function __construct(private Security $security,) {
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -30,10 +38,29 @@ class OpinionType extends AbstractType
                 ],
                 'expanded' => true,
                 'multiple' => false,
-            ])
-            ->add('is_validated', HiddenType::class, ['empty_data' => 'false'])
-        ;
+            ]);
+
+        $user = $this->security->getUser();
+
+        if ($user) {
+            $builder
+                ->add('is_validated', ChoiceType::class, [
+                    'label' => 'Commentaire validé?',
+                    'choices' => [
+                        'non' => false,
+                        'oui' => true,
+                    ],
+                    'empty_data' => 'non']);
+        }
+        else {
+            $builder
+                ->add('is_validated', HiddenType::class, [
+                    'label' => 'Commentaire validé?',
+                    'empty_data' => false]);
+        };
     }
+        
+
 
     public function configureOptions(OptionsResolver $resolver): void
     {

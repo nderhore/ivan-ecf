@@ -27,8 +27,13 @@
         <!-- Display the average grade -->
         {% if opinionToDisplay %}
             <h3>Note moyenne :   {{ averageGrade }} / 5</h3>
-            <p> Commentaire : {{ opinionToDisplay.commentary }} </p>
-            <p> De : {{ opinionToDisplay.lastname }} </p>
+            <div class="carousel">
+                <button class='button' id='previous_button'>&#10096;</button>
+                <p id='carousel_comment'> Commentaire : {{ opinionToDisplay.commentary }} </p>
+                <p id='carousel_lastname'> De : {{ opinionToDisplay.lastname }} </p>
+                <button class='button' id='next_button'>&#10097;</button>
+            </div>
+            
         {% else %}
             <h3>Note moyenne : Il n'y a pas encore de note</h3>
             <p> Commentaire : Il n'y a pas encore de commentaire </p>
