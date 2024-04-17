@@ -3,10 +3,16 @@
 namespace App\Entity;
 
 use App\Repository\OpinionsRepository;
+use Doctrine\DBAL\Types\Type;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: OpinionsRepository::class)]
+#[UniqueEntity(fields: 'lastname', message: "Vous avez déjà laissé un commentaire.")]
+
 class Opinions
 {
     #[ORM\Id]
@@ -15,15 +21,20 @@ class Opinions
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(min: 2, max: 30)]
+    #[Assert\Regex("/[-'0-9a-zÀ-ÿ]+$/")]
     private ?string $lastname = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\Length(min: 2, max: 255)]
+    #[Assert\Regex("/[-',;:.?!0-9a-zÀ-ÿ]+$/")]
     private ?string $commentary = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::INTEGER)]
+    #[Assert\Regex("/[1-5]+$/")]
     private ?int $grade = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::BOOLEAN, nullable: true)]
     private ?bool $is_validated = null;
 
     public function getId(): ?int
