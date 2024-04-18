@@ -49,13 +49,9 @@
                             'label': 'Le sujet du message : ',
                             'class': 'foo',
                         }
-                            
                         }) }}
                     </p>
                     
-                    {#
-                    {{ form_widget(contactForm.title )}}
-                    #}
                     <p class="contact_form_short">
                         {{ form_row(contactForm.message, {
                             'label': 'Votre message : '
@@ -85,12 +81,12 @@
                         <p class="contact_form_subject">Sujet: {{ oneForm.title}}</p>
                         <p class="contact_form_message">Message: {{ oneForm.message}}</p>
                     </div>
-
-                <form action="{{ path('app_contact_delete', {id: oneForm.id} )}}" method= "post">
-                    <input type="hidden" name="_method" value="DELETE">
-                    <button type="submit" class="link">Supprimer</button>
-                </form>
-
+                    <div class="contact_form_shorts">
+                        <form action="{{ path('app_contact_delete', {id: oneForm.id} )}}" method= "post">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="link">Supprimer</button>
+                        </form>
+                    </div>             
                 </section>
             {% endfor %}
         </article>

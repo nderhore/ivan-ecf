@@ -37,12 +37,12 @@ class ContactController extends AbstractController
         $user = $security->getUser();
 
         // List of the existing contact form
-        $formList = $contactsRepository->findBy([],['id' => 'ASC']);
+        $formList = $contactsRepository->findBy([],['id' => 'DESC']);
 
         
         // Informations for the contact form
         $contact = new Contacts();
-        $contactForm = $this->createForm(ContactType::class, $contact/*, ['id' => $id]*/);
+        $contactForm = $this->createForm(ContactType::class, $contact);
         $contactForm->handleRequest($request);
 
         // Submission of the contact form

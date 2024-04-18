@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\OpinionsRepository;
-use Doctrine\DBAL\Types\Type;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;

@@ -30,11 +30,11 @@ class HomeController extends AbstractController
         // For the display of the opinions
         $opinionsValidated = $opinionsRepository->getValidatedOpinions();
         if (count($opinionsValidated) > 0) {
-            $opinionToDisplay = $opinionsValidated[0];
+            $opinionsToDisplay = $opinionsValidated;
             $averageGrade = $opinionsRepository->getAverageGrade();
         }
         else {
-            $opinionToDisplay = null;
+            $opinionsToDisplay = null;
             $averageGrade = '5';
         }
         
@@ -43,7 +43,7 @@ class HomeController extends AbstractController
             'openingHourList' => $openingHourList,
             'prestationList' => $prestationList,
             'user' => $user,
-            'opinionToDisplay' => $opinionToDisplay,
+            'opinionsToDisplay' => $opinionsToDisplay,
             'averageGrade' => $averageGrade,
         ]);
     }

@@ -30,6 +30,8 @@
                             'label': 'Votre note : '
                         }) }}
                     </p>
+                </div>
+                <div class="opinion_form_shorts">
                     <p class="opinion_form_short">
                         {{ form_row(opinionForm.commentary, {
                             'label': 'Votre commentaire : '
@@ -57,6 +59,8 @@
                     <div class="opinion_form_shorts">
                         <p class="opinion_form_short">Nom : {{ oneForm.lastname}}</p>
                         <p class="opinion_form_subject">Note : {{ oneForm.grade}} / 5</p>
+                    </div>
+                    <div class="opinion_form_shorts">
                         <p class="opinion_form_message">Commentaire : {{ oneForm.commentary}}</p>
                         <p class="opinion_form_validate">Commentaire validé : {{ oneForm.isvalidated}}</p>
                     </div>

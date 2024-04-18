@@ -25,15 +25,21 @@
     <article class="index_article_opinion">
         <h2>Avis des clients</h2>
         <!-- Display the average grade -->
-        {% if opinionToDisplay %}
-            <h3>Note moyenne :   {{ averageGrade }} / 5</h3>
+        {% if opinionsToDisplay %}
+            <h3>Note moyenne :   {{ averageGrade | number_format(1)}} / 5</h3>
+
             <div class="carousel">
-                <button class='button' id='previous_button'>&#10096;</button>
-                <p id='carousel_comment'> Commentaire : {{ opinionToDisplay.commentary }} </p>
-                <p id='carousel_lastname'> De : {{ opinionToDisplay.lastname }} </p>
-                <button class='button' id='next_button'>&#10097;</button>
+            <button class='button' id='previous_button'>&#10096;</button>
+                {% for key, opinionToDisplay in opinionsToDisplay %}
+                    <div class="slide">
+                        <p class='carousel_comment'> Commentaire : {{ opinionToDisplay.commentary }} </p>
+                        <p class='carousel_lastname'> De : {{ opinionToDisplay.lastname }} </p>
+                    </div>
+                {% endfor %}
+            <button class='button' id='next_button'>&#10097;</button>
+
             </div>
-            
+
         {% else %}
             <h3>Note moyenne : Il n'y a pas encore de note</h3>
             <p> Commentaire : Il n'y a pas encore de commentaire </p>

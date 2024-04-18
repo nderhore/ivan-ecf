@@ -35,7 +35,8 @@ class OpinionsRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('b')
             ->andWhere('b.is_validated = true')
-            ->orderBy('b.id', 'ASC')
+            ->orderBy('b.id', 'DESC')
+            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;

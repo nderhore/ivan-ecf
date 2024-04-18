@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Contacts;
 use App\Entity\Opinions;
 use App\Form\OpinionType;
 use App\Repository\OpeningHoursRepository;
@@ -38,7 +37,7 @@ class OpinionController extends AbstractController
         $user = $security->getUser();
 
         // List of the existing opinion form
-        $opinionsFormList = $opinionsRepository->findBy([],['id' => 'ASC']);
+        $opinionsFormList = $opinionsRepository->findBy([],['id' => 'DESC']);
 
         
         // Informations for the opinion form

@@ -149,8 +149,8 @@ footer {
     color: var(--dark);
 
     /* courtesy popup position in 3D */
-    position: absolute;
-    top: 500px;
+    position: relative;
+    bottom: 450px;
     z-index: 2;
 }
 /* Footer - END */
@@ -254,8 +254,11 @@ input {
     text-align: center;
 }
 
+/* Home page carousel - START */
+
 .carousel {
     position: relative;
+    height: 100px;
 }
 
 .carousel button {
@@ -278,6 +281,19 @@ input {
 #next_button {
     right: 5px;
 }
+
+.slide {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.slide .inactive {
+    position: relative;
+}
+/* Home page carousel - END */
+
 /* Index - END */
 
 /* Car-body & Mecanic & Maintenance & Sale presentation articles - START */
@@ -416,13 +432,13 @@ input {
     flex-direction: row;
     margin-bottom: 10px;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     width: 100%;
     background-color: var(--dark);
     color: var(--pale-grey);
 }
 
-.contact_form_shorts {
+.contact_form_shorts, .opinion_form_shorts {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;

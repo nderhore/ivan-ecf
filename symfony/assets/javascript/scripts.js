@@ -1,4 +1,14 @@
+/* Name of the page - START */
+
+let currentPage = window.location.pathname
+
+/* Name of the page - END */
+
+
+
+
 /* Popup for the sources of the images in the footer - START */
+
 let footerCourtesyButton = document.getElementById('footer_courtesy');
 let footerCourtesyPopup = document.getElementById('footer_courtesy_popup');
 
@@ -9,20 +19,20 @@ footerCourtesyButton.addEventListener('click', ()=> {
     footerCourtesyPopup.classList.replace('visible', 'invisible');
   }
 });
+
 /* Popup for the sources of the images in the footer- END */
 
 
 /* Sale page : filter of the ads - START */
-let saleArticleFilters = document.getElementsByClassName('sale_article_filters')[0];
 
-if (typeof saleArticleFilters !== 'undefined') {
+if (currentPage == '/prestations/4') {
+
+  let saleArticleFilters = document.getElementsByClassName('sale_article_filters')[0];
 
   saleArticleFilters.addEventListener('keyup', filterAds, false);
   saleArticleFilters.addEventListener('click', filterAds, false);
   
   function filterAds() {
-    console.log('test');
-    console.log('test2');
     let carAds = document.getElementsByClassName('sale_article_car');
     let filterValue = [];
   
@@ -64,23 +74,55 @@ if (typeof saleArticleFilters !== 'undefined') {
 
 /* Home page : Carousel of the opinions - START */
 
-let previousButton = document.getElementById('previous_button');
-let nextButton = document.getElementById('next_button');
-let carouselComment = document.getElementById('carousel_comment');
-let carouselLastname = document.getElementById('carousel_lastname');
+if (currentPage == '/') {
 
-if (typeof previousButton !== 'undefined') {
+  let previousButton = document.getElementById('previous_button');
+  let nextButton = document.getElementById('next_button');
+  
+  let slides = document.querySelectorAll('.slide');
+  
+  let elementNumber = slides.length;
+  let activeKey = 0;
+  let nextKey = 0;
+
+  displayCarousel(activeKey, elementNumber, slides);
 
   previousButton.addEventListener('click', ()=> {
-    console.log("j'ai cliqué sur le bouton previous");
-    console.log(carouselComment);
+    nextKey =  (activeKey - 1);
+    if (nextKey > 0) 
+    {
+      activeKey = activeKey - 1;
+    } else
+    {
+      activeKey = (elementNumber - 1);
+    }
+    displayCarousel(activeKey, elementNumber, slides);
   });
 
   nextButton.addEventListener('click', ()=> {
-    console.log("j'ai cliqué sur le bouton next");
-    console.log(carouselLastname);
+    nextKey =  (activeKey + 1);
+    if (nextKey < (elementNumber)) 
+    {
+      activeKey = (activeKey + 1);
+    } else
+    {
+      activeKey = 0;
+    }
+    displayCarousel(activeKey, elementNumber, slides);
   });
 
+}
+
+function displayCarousel(activeKey, elementNumber, slides) {
+  for (let i = 0; i < elementNumber; i++) {
+    if (i == activeKey) {
+      slides[i].classList.remove('invisible');
+    }
+    else
+    {
+      slides[i].classList.add('invisible');
+    }
+  };
 }
 
 /* Home page : Carousel of the opinions - START */
