@@ -1,4 +1,5 @@
 /* Create schema and all the tables - START */
+
 /* Create schema */
 CREATE SCHEMA ecf_garage;
 USE ecf_garage;
@@ -70,8 +71,8 @@ CREATE TABLE cars (
 
 
 /* Fulfill the tables - START */
-/* Fulfill the table users */
 
+/* Fulfill the table users */
 INSERT INTO users (id, email, `password`, `roles`) VALUES
   (uuid(), 'vincent.parrot@poudlard.com', MD5('chevrolet'), '["ROLE_ADMIN"]'),
   (uuid(), 'ronald.weasley@poudlard.com', MD5('roney'), '["ROLE_EMPLOYE"]'),
@@ -80,7 +81,6 @@ INSERT INTO users (id, email, `password`, `roles`) VALUES
 
 
 /* Fulfill the table services */
-
 INSERT INTO prestations (id, title, `message`, image_name) VALUES
   (NULL, 'Réparation carrosserie', "Notre équipe de professionnels est là pour réparer la carrosserie de votre véhicule et vous le rendre comme neuf.", 'car-body-illustration-sm-65d24cd7d8b87481370207.jpg' ),
   (NULL, 'Réparation mécanique', "Fort de 15 ans d'expérience dans la réparation automobile, V. Parrot et son équipe vous assure un service irréprochable.", 'mecanic-illustration-sm-65d24ce73d987370605457.jpg'),
@@ -89,7 +89,6 @@ INSERT INTO prestations (id, title, `message`, image_name) VALUES
 
 
 /* Fulfill the table opening_hours */
-
 INSERT INTO opening_hours (id, open_day, open_hour) VALUES
   (NULL, 'Lundi-Vendredi :', '8h45-12h00 | 14h00-18h00'),
   (NULL, 'Samedi :', '8h45-12h00'),
@@ -105,7 +104,6 @@ INSERT INTO contacts (id, firstname, lastname, email, phone, title, `message`) V
 
 
 /* Fulfill the table opinions */
-
 INSERT INTO opinions (id, lastname, commentary, grade, is_validated) VALUES
   (NULL, 'Longdubas', "Ce garage est extraordinaire!!", 5, 'approved'),
   (NULL, 'Malfoy', "Pas mal mais un peu cher.", 3, 'approved'),
@@ -113,7 +111,6 @@ INSERT INTO opinions (id, lastname, commentary, grade, is_validated) VALUES
 
 
 /* Fulfill the table cars */
-
 INSERT INTO cars (id, title, build_year, fuel, kilometer, price, image_name) VALUES
   (NULL, 'Citroen 2CV', 1978, 'SP98', 1250000, 3600, 'gunther-schneider-65d1ee79742de811332640.jpg'),
   (NULL, 'Cadillac', 1964, 'Diesel', 96400, 12500, 'noel-bauza-65d1ee8447284445927651.jpg'),

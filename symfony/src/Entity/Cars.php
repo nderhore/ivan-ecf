@@ -53,13 +53,6 @@ class Cars
     public function __construct()
     {
         $this->cars = new ArrayCollection();
-        /*
-        $this->title = new ArrayCollection();
-        $this->build_year = new ArrayCollection();
-        $this->fuel = new ArrayCollection();
-        $this->kilometer = new ArrayCollection();
-        $this->price = new ArrayCollection();
-        */
     }
 
     public function __toString()
@@ -147,8 +140,6 @@ class Cars
         $this->imageFile = $imageFile;
 
         if (null !== $imageFile) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
             $this->updatedAt = new \DateTimeImmutable();
         }
     }
