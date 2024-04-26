@@ -38,12 +38,12 @@ class HomeController extends AbstractController
         }
         
         return $this->render('home/index.html.twig', [
+            'opinionsToDisplay' => $opinionsToDisplay,
+            'averageGrade' => $averageGrade,
             'controller_name' => 'HomeController',
             'openingHourList' => $openingHourList,
             'prestationList' => $prestationList,
-            'user' => $user,
-            'opinionsToDisplay' => $opinionsToDisplay,
-            'averageGrade' => $averageGrade,
+            'user' => $user,            
         ]);
     }
 }

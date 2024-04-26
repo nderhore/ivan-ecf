@@ -19,12 +19,12 @@ class Contacts
 
     #[ORM\Column(length: 255)]
     #[Assert\Length(min: 2, max: 30)]
-    #[Assert\Regex("/[-'0-9a-zÀ-ÿ]+$/")]
+    #[Assert\Regex("/^[-'0-9a-zÀ-ÿ]+$/")]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\Length(min: 2, max: 30)]
-    #[Assert\Regex("/[-'0-9a-zÀ-ÿ]+$/")]
+    #[Assert\Regex("/^[-'0-9a-zÀ-ÿ]+$/")]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 255)]
@@ -39,12 +39,12 @@ class Contacts
 
     #[ORM\Column(length: 255)]
     #[Assert\Length(min: 2, max: 30)]
-    #[Assert\Regex("/[-',;:.?!0-9a-zÀ-ÿ]+$/")]
+    #[Assert\Regex("/^[-',;:.?!0-9a-zÀ-ÿ]+$/")]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\Length(min: 2, max: 255)]
-    #[Assert\Regex("/[-',;:.?!0-9a-zÀ-ÿ]+$/")]
+    #[Assert\Regex("/^[-',;:.?!0-9a-zÀ-ÿ]+$/")]
     private ?string $message = null;
 
    

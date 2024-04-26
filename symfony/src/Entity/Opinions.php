@@ -19,18 +19,18 @@ class Opinions
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT)]
     #[Assert\Length(min: 2, max: 30)]
-    #[Assert\Regex("/[-'0-9a-zÀ-ÿ]+$/")]
+    #[Assert\Regex("/^[-'0-9a-zÀ-ÿ]+$/")]
     private ?string $lastname = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\Length(min: 2, max: 255)]
-    #[Assert\Regex("/[-',;:.?!0-9a-zÀ-ÿ]+$/")]
+    #[Assert\Regex("/^[-',;:.?!0-9a-zÀ-ÿ]+$/")]
     private ?string $commentary = null;
 
     #[ORM\Column(type: Types::INTEGER)]
-    #[Assert\Regex("/[1-5]+$/")]
+    #[Assert\Regex("/^[1-5]+$/")]
     private ?int $grade = null;
 
     #[ORM\Column(type: Types::BOOLEAN, nullable: true)]
