@@ -17,34 +17,34 @@ class Contacts
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT)]
     #[Assert\Length(min: 2, max: 30)]
-    #[Assert\Regex("/^[-'0-9a-zÀ-ÿ]+$/")]
+    #[Assert\Regex("/^[-'0-9a-zA-ZÀ-ÿ\s]+$/")]
     private ?string $firstname = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT)]
     #[Assert\Length(min: 2, max: 30)]
-    #[Assert\Regex("/^[-'0-9a-zÀ-ÿ]+$/")]
+    #[Assert\Regex("/^[-'0-9a-zA-ZÀ-ÿ\s]+$/")]
     private ?string $lastname = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT)]
     #[Assert\Length(min: 2, max: 255)]
     #[Assert\Regex('/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/')]
     private ?string $email = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT)]
     #[Assert\Length(min: 2, max: 30)]
     #[Assert\Regex('/^[-+0-9\s]+$/')]
     private ?string $phone = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT)]
     #[Assert\Length(min: 2, max: 30)]
-    #[Assert\Regex("/^[-',;:.?!0-9a-zÀ-ÿ]+$/")]
+    #[Assert\Regex("/^[-',;:.?!0-9a-zA-ZÀ-ÿ\s]+$/")]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\Length(min: 2, max: 255)]
-    #[Assert\Regex("/^[-',;:.?!0-9a-zÀ-ÿ]+$/")]
+    #[Assert\Regex("/^[-',;:.?!0-9a-zA-ZÀ-ÿ\s]+$/")]
     private ?string $message = null;
 
    
