@@ -91,7 +91,7 @@ if (currentPage == '/') {
     nextKey =  (activeKey - 1);
     if (nextKey > 0) 
     {
-      activeKey = activeKey - 1;
+      activeKey = (activeKey - 1);
     } else
     {
       activeKey = (elementNumber - 1);
@@ -110,7 +110,6 @@ if (currentPage == '/') {
     }
     displayCarousel(activeKey, elementNumber, slides);
   });
-
 }
 
 function displayCarousel(activeKey, elementNumber, slides) {

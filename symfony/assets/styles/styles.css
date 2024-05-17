@@ -461,10 +461,15 @@ input {
 .invisible {
     visibility: collapse;
     height: 0;
+    position: absolute;
+    z-index: -1;
 }
 
 .visible {
     visibility: visible;
+    position: absolute;
+    z-index: 0;
+    width: 100%;
 }
 
 /* Modify the cursor when it hover a link */ 

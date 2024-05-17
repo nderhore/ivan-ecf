@@ -6,6 +6,7 @@ use App\Repository\UsersRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
 class Users implements UserInterface, PasswordAuthenticatedUserInterface
@@ -16,6 +17,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\Regex('/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/')]
     private ?string $email = null;
 
     #[ORM\Column]
