@@ -29,7 +29,7 @@ class Contacts
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\Length(min: 2, max: 255)]
-    #[Assert\Regex('/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/')]
+    #[Assert\Regex('/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/')]
     private ?string $email = null;
 
     #[ORM\Column(type: Types::TEXT)]

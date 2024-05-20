@@ -13,6 +13,7 @@
         {% endfor %}
     </article>
 
+    {# New form #}
     <article class="opinion_article">
         {{ form_start(opinionForm) }}
 
@@ -21,27 +22,19 @@
             <section class="opinion_article_form">
                 <div class="opinion_form_shorts">
                     <p class="opinion_form_short">
-                        {{ form_row(opinionForm.lastname, {
-                            'label': 'Votre nom : '
-                        }) }}
+                        {{ form_row(opinionForm.lastname, {'label': 'Votre nom : '}) }}
                     </p>
                     <p id='opinionFormTitle' class="opinion_form_short">
-                        {{ form_row(opinionForm.grade, {
-                            'label': 'Votre note : '
-                        }) }}
+                        {{ form_row(opinionForm.grade, {'label': 'Votre note : '}) }}
                     </p>
                 </div>
                 <div class="opinion_form_shorts">
                     <p class="opinion_form_short">
-                        {{ form_row(opinionForm.commentary, {
-                            'label': 'Votre commentaire : '
-                        }) }}
+                        {{ form_row(opinionForm.commentary, {'label': 'Votre commentaire : '}) }}
                     </p>
                     {% if user %}
                         <p class="opinion_form_short">
-                            {{ form_row(opinionForm.is_validated, {
-                                'label': 'Commentaire validé? '
-                            }) }}
+                            {{ form_row(opinionForm.is_validated, {'label': 'Commentaire validé? '}) }}
                         </p>
                     {% endif %}
                 </div>
@@ -51,6 +44,7 @@
         {{ form_end(opinionForm) }}
     </article>
 
+    {# Display of all the opinions #}
     {% if user %}
         <article class="opinion_article">
             <h2>Les commentaires des visiteurs</h2>
