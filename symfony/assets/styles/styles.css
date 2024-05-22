@@ -124,7 +124,7 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .footer_section {
@@ -488,6 +488,11 @@ a:hover, .link, #footer_courtesy {
 
     .logoGarage {
         margin-right: 1rem;
+    }
+
+    /* Change the display of the footer */
+    footer, .footer_section {
+        flex-direction: column;
     }
 
     /* Home page */

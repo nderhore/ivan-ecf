@@ -81,6 +81,7 @@ class OpinionController extends AbstractController
 
         $user = $security->getUser();
 
+        // Creation of the contact form
         $opinionFormToEdit = $this->createForm(OpinionType::class, $opinion);
         $opinionFormToEdit->handleRequest($request);
 
@@ -92,7 +93,6 @@ class OpinionController extends AbstractController
             $this->addFlash('success', 'Votre avis a bien été modifié');
             return $this->redirectToRoute('app_opinion');
         }
-
 
         return $this->render('opinion/edit_opinion.html.twig', [
             'openingHourList' => $openingHourList,
