@@ -6,6 +6,7 @@ use App\Repository\ContactsRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Mime\Message;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ContactsRepository::class)]
@@ -18,33 +19,69 @@ class Contacts
     private ?int $id = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Assert\Length(min: 2, max: 30)]
-    #[Assert\Regex("/^[-'0-9a-zA-ZÀ-ÿ\s]+$/")]
+    #[Assert\Length(
+        min: 2,
+        minMessage: 'Veuillez entrer plus de 1 caractère',
+        max: 30, 
+        maxMessage: 'Veuillez entrer moins de 31 caractères')]
+    #[Assert\Regex(
+        pattern:"/^[-'0-9a-zA-ZÀ-ÿ\s]+$/", 
+        message:"Vous avez entré des caractères non autorisés")]
     private ?string $firstname = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Assert\Length(min: 2, max: 30)]
-    #[Assert\Regex("/^[-'0-9a-zA-ZÀ-ÿ\s]+$/")]
+    #[Assert\Length(
+        min: 2,
+        minMessage: 'Veuillez entrer plus de 1 caractère',
+        max: 30, 
+        maxMessage: 'Veuillez entrer moins de 31 caractères')]
+    #[Assert\Regex(
+        pattern:"/^[-'0-9a-zA-ZÀ-ÿ\s]+$/",
+        message:"Vous avez entré des caractères non autorisés")]
     private ?string $lastname = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Assert\Length(min: 2, max: 255)]
-    #[Assert\Regex('/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/')]
+    #[Assert\Length(
+        min: 2,
+        minMessage: 'Veuillez entrer plus de 1 caractère',
+        max: 255, 
+        maxMessage: 'Veuillez entrer moins de 256 caractères')]
+    #[Assert\Regex(
+        pattern:'/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/',
+        message:"Vous avez entré des caractères non autorisés")]
     private ?string $email = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Assert\Length(min: 2, max: 30)]
-    #[Assert\Regex('/^[-+0-9\s]+$/')]
+    #[Assert\Length(
+        min: 2,
+        minMessage: 'Veuillez entrer plus de 1 caractère',
+        max: 30, 
+        maxMessage: 'Veuillez entrer moins de 31 caractères')]
+    #[Assert\Regex(
+        pattern:'/^[-+0-9\s]+$/',
+        message:"Vous avez entré des caractères non autorisés")]
     private ?string $phone = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Assert\Length(min: 2, max: 30)]
-    #[Assert\Regex("/^[-',;:.?!0-9a-zA-ZÀ-ÿ\s]+$/")]
+    #[Assert\Length(
+        min: 2,
+        minMessage: 'Veuillez entrer plus de 1 caractère',
+        max: 30, 
+        maxMessage: 'Veuillez entrer moins de 31 caractères')]
+    #[Assert\Regex(
+        pattern:"/^[-',;:.?!0-9a-zA-ZÀ-ÿ\s]+$/",
+        message:"Vous avez entré des caractères non autorisés")]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Assert\Length(min: 2, max: 255)]
-    #[Assert\Regex("/^[-',;:.?!0-9a-zA-ZÀ-ÿ\s]+$/")]
+    #[Assert\Length(
+        min: 2,
+        minMessage: 'Veuillez entrer plus de 1 caractère',
+        max: 255, 
+        maxMessage: 'Veuillez entrer moins de 256 caractères')]
+    #[Assert\Regex(
+        pattern:"/^[-',;:.?!0-9a-zA-ZÀ-ÿ\s]+$/",
+        message:"Vous avez entré des caractères non autorisés")]
     private ?string $message = null;
 
    

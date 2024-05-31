@@ -20,17 +20,36 @@ class Opinions
     private ?int $id = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Assert\Length(min: 2, max: 30)]
-    #[Assert\Regex("/^[-'0-9a-zA-ZÀ-ÿ\s]+$/")]
+    #[Assert\Length(
+        min: 2,
+        minMessage: 'Veuillez entrer plus de 1 caractère',
+        max: 30, 
+        maxMessage: 'Veuillez entrer moins de 31 caractères')]
+    #[Assert\Regex(
+        pattern:"/^[-'0-9a-zA-ZÀ-ÿ\s]+$/",
+        message:"Vous avez entré des caractères non autorisés")]
     private ?string $lastname = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Assert\Length(min: 2, max: 255)]
-    #[Assert\Regex("/^[-',;:.?!0-9a-zA-ZÀ-ÿ\s]+$/")]
+    #[Assert\Length(
+        min: 2,
+        minMessage: 'Veuillez entrer plus de 1 caractère',
+        max: 255, 
+        maxMessage: 'Veuillez entrer moins de 256 caractères')]
+    #[Assert\Regex(
+        pattern:"/^[-',;:.?!0-9a-zA-ZÀ-ÿ\s]+$/",
+        message:"Vous avez entré des caractères non autorisés")]
     private ?string $commentary = null;
 
     #[ORM\Column(type: Types::INTEGER)]
-    #[Assert\Regex("/^[1-5]+$/")]
+    #[Assert\Length(
+        min: 2,
+        minMessage: 'Veuillez entrer plus de 1 caractère',
+        max: 255, 
+        maxMessage: 'Veuillez entrer moins de 256 caractères')]
+    #[Assert\Regex(
+        pattern:"/^[1-5]+$/",
+        message:"Vous avez entré des caractères non autorisés")]
     private ?int $grade = null;
 
     #[ORM\Column(nullable: true)]

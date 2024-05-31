@@ -6,7 +6,7 @@ USE ecf_garage;
 
 /* Create table users */
 CREATE TABLE IF NOT EXISTS users (
-  id VARCHAR(36) NOT NULL,
+  id VARCHAR(36) NOT NULL AUTO_INCREMENT,
   email VARCHAR(254) NOT NULL,
   `password` VARCHAR(60) NOT NULL,
   `roles` VARCHAR(40) NOT NULL,
