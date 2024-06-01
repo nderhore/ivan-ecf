@@ -19,7 +19,7 @@
             {% for prestation in prestationList %}
                 {% include "partials/prestation/_prestation_block.html.twig" %}
             {% endfor %}
-        </section>
+        </div>
     </article>
 
     <article class="index_article_opinion">
@@ -29,15 +29,14 @@
             <h3>Note moyenne :   {{ averageGrade | number_format(1)}} / 5</h3>
 
             <div class="carousel">
-            <button class='button' id='previous_button'>&#10096;</button>
-                {% for key, opinionToDisplay in opinionsToDisplay %}
-                    <div class="slide">
-                        <p class='carousel_comment'> Commentaire : {{ opinionToDisplay.commentary }} </p>
-                        <p class='carousel_lastname'> De : {{ opinionToDisplay.lastname }} </p>
-                    </div>
-                {% endfor %}
-            <button class='button' id='next_button'>&#10097;</button>
-
+                <button class='button' id='previous_button'>&#10096;</button>
+                    {% for key, opinionToDisplay in opinionsToDisplay %}
+                        <div class="slide">
+                            <p class='carousel_comment'> Commentaire : {{ opinionToDisplay.commentary }} </p>
+                            <p class='carousel_lastname'> De : {{ opinionToDisplay.lastname }} </p>
+                        </div>
+                    {% endfor %}
+                <button class='button' id='next_button'>&#10097;</button>
             </div>
 
         {% else %}
@@ -46,5 +45,4 @@
         {% endif %}
         <a class="link" href="{{ path('app_opinion') }}">Laisser un avis</a>
     </article>
-
 {% endblock %}

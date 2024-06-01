@@ -43,10 +43,10 @@ class Opinions
 
     #[ORM\Column(type: Types::INTEGER)]
     #[Assert\Length(
-        min: 2,
-        minMessage: 'Veuillez entrer plus de 1 caractère',
-        max: 255, 
-        maxMessage: 'Veuillez entrer moins de 256 caractères')]
+        min: 1,
+        minMessage: 'Veuillez entrer une note entre 1 et 5',
+        max: 1, 
+        maxMessage: 'Veuillez entrer une note entre 1 et 5')]
     #[Assert\Regex(
         pattern:"/^[1-5]+$/",
         message:"Vous avez entré des caractères non autorisés")]
