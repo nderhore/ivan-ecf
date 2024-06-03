@@ -20,4 +20,29 @@ class CarsRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Cars::class);
     }
+
+    public function findByCriteria($km,$year,$price){
+
+        //construction de la requete
+        $queryBuilder = $this->createQueryBuilder('c');
+
+        //implementation des criteres de recherche
+        if ($km) {
+            $qb->andWhere('c.kilometer <= :km')
+               ->setParameter('km', $km);
+        }
+
+        if ($year) {
+            $qb->andWhere('c.build_year >= :year')
+               ->setParameter('year', $year);
+        }
+
+        if ($price) {
+            $qb->andWhere('c.price <= :price')
+               ->setParameter('price', $price);
+        }
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
 }
